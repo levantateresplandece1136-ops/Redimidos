@@ -206,6 +206,8 @@ export default function App() {
 
   const graceCount = getCompletedStationsCount();
 
+  const [activeTransition, setActiveTransition] = useState<'chains' | 'contract' | 'prison' | null>(null);
+
   // Culminating screen states
   const [culminatingPhase, setCulminatingPhase] = useState(0); 
   const [secondsRemaining, setSecondsRemaining] = useState(6);
@@ -841,7 +843,7 @@ MI RESPUESTA DE GRATITUD:
                     </div>
                   </div>
 
-                  <div className="mt-8 flex justify-between gap-3 pt-4 border-t border-slate-900/60">
+                  <div className="mt-8 flex justify-between gap-3 pt-4 border-t border-slate-900/60 font-sans">
                     <button
                       onClick={navigateBack}
                       className="px-4 py-2 text-xs text-slate-400 hover:text-slate-100 flex items-center gap-1.5 transition"
@@ -849,7 +851,13 @@ MI RESPUESTA DE GRATITUD:
                       <ArrowLeft className="w-3.5 h-3.5" /> Volver
                     </button>
                     <button
-                      onClick={() => setScreen('station2_lost')}
+                      onClick={() => {
+                        setActiveTransition('chains');
+                        setTimeout(() => {
+                          setScreen('station2_lost');
+                          setActiveTransition(null);
+                        }, 3500);
+                      }}
                       disabled={!responses.selfEffort.trim() || !responses.gratitudeLiberation.trim()}
                       className="px-5 py-2.5 bg-[#d4a359] disabled:bg-slate-800 disabled:text-slate-500 hover:bg-amber-400 text-slate-950 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition duration-300 select-none cursor-pointer"
                       id="station-1b-next"
@@ -1030,7 +1038,13 @@ MI RESPUESTA DE GRATITUD:
                       <ArrowLeft className="w-3.5 h-3.5" /> Volver
                     </button>
                     <button
-                      onClick={() => setScreen('station3_lies')}
+                      onClick={() => {
+                        setActiveTransition('contract');
+                        setTimeout(() => {
+                          setScreen('station3_lies');
+                          setActiveTransition(null);
+                        }, 3500);
+                      }}
                       disabled={!responses.restoredDetails.trim() || !responses.restorationSentence.trim()}
                       className="px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition duration-300 disabled:bg-slate-800 disabled:text-slate-500 select-none cursor-pointer"
                       id="station-2b-next"
@@ -1138,7 +1152,13 @@ MI RESPUESTA DE GRATITUD:
                       <ArrowLeft className="w-3.5 h-3.5" /> Volver
                     </button>
                     <button
-                      onClick={() => setScreen('culminating')}
+                      onClick={() => {
+                        setActiveTransition('prison');
+                        setTimeout(() => {
+                          setScreen('culminating');
+                          setActiveTransition(null);
+                        }, 3500);
+                      }}
                       disabled={!responses.believedLie.trim() || !responses.governingTruth.trim()}
                       className="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition duration-300 disabled:bg-slate-800 disabled:text-slate-500 select-none cursor-pointer font-mono"
                       id="station-3-next"
@@ -1630,6 +1650,334 @@ MI RESPUESTA DE GRATITUD:
           </AnimatePresence>
         </div>
 
+        {/* Animated Transition overlays */}
+        <AnimatePresence>
+          {activeTransition === 'chains' && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className={`absolute inset-0 rounded-2xl z-50 flex flex-col justify-center items-center text-center p-6 overflow-hidden ${
+                isReadingMode ? 'bg-[#0b0805]' : 'bg-slate-950'
+              }`}
+              id="transition-overlay-chains"
+            >
+              {/* Chains Breaking Animation SVG */}
+              <div className="relative w-48 h-48 flex items-center justify-center">
+                {/* Aura */}
+                <motion.div
+                  initial={{ scale: 0.3, opacity: 0 }}
+                  animate={{ scale: [0.3, 1.8, 1.5], opacity: [0, 0.4, 0.2] }}
+                  transition={{ duration: 1.5, repeat: Infinity, repeatType: 'reverse' }}
+                  className="absolute w-28 h-28 rounded-full bg-amber-500/30 blur-xl"
+                />
+                
+                {/* Sparks / Particles bursting out */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  {[...Array(12)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ scale: 0, x: 0, y: 0, opacity: 1 }}
+                      animate={{
+                        scale: [0, 1.2, 0],
+                        x: Math.cos((i * 30 * Math.PI) / 180) * 85,
+                        y: Math.sin((i * 30 * Math.PI) / 180) * 85,
+                        opacity: [1, 1, 0]
+                      }}
+                      transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
+                      className="absolute w-1.5 h-1.5 rounded-full bg-amber-400 shadow-lg shadow-amber-300"
+                    />
+                  ))}
+                </div>
+
+                {/* Left Chain Link */}
+                <motion.div
+                  initial={{ x: 0, rotate: 0 }}
+                  animate={{ 
+                    x: [0, -3, -40, -120], 
+                    y: [0, 0, -10, 40],
+                    rotate: [0, -10, -55, -95],
+                    opacity: [1, 1, 1, 0]
+                  }}
+                  transition={{ duration: 1.8, delay: 0.6, ease: "easeInOut" }}
+                  className="absolute left-10 w-16 h-8 border-4 border-slate-400 rounded-full flex items-center justify-center shadow-md bg-transparent"
+                />
+
+                {/* Right Chain Link */}
+                <motion.div
+                  initial={{ x: 0, rotate: 0 }}
+                  animate={{ 
+                    x: [0, 3, 40, 120], 
+                    y: [0, 0, -10, 40],
+                    rotate: [0, 10, 55, 95],
+                    opacity: [1, 1, 1, 0]
+                  }}
+                  transition={{ duration: 1.8, delay: 0.6, ease: "easeInOut" }}
+                  className="absolute right-10 w-16 h-8 border-4 border-slate-400 rounded-full flex items-center justify-center shadow-md bg-transparent"
+                />
+
+                {/* Breaking Spark Center Flash */}
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ 
+                    scale: [0, 0.4, 3, 0],
+                    opacity: [0, 1, 0.9, 0]
+                  }}
+                  transition={{ duration: 0.9, delay: 0.55 }}
+                  className="absolute w-16 h-16 bg-gradient-to-r from-amber-200 to-yellow-400 rounded-full blur-sm"
+                />
+                
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.2 }}
+                  animate={{ opacity: [0, 1, 1], scale: [0.2, 1.2, 1] }}
+                  transition={{ duration: 1, delay: 1.2, ease: "backOut" }}
+                  className="absolute"
+                >
+                  <Sparkles className="w-12 h-12 text-[#d4a359] filter drop-shadow-[0_0_12px_rgba(212,163,89,0.7)] animate-pulse" />
+                </motion.div>
+              </div>
+
+              {/* Title & Scriptures */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1, duration: 0.8 }}
+                className="space-y-4 max-w-sm px-4"
+              >
+                <div className="inline-block px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-[#d4a359] text-[10px] font-mono rounded-full uppercase tracking-widest">
+                  ESTACIÓN 1 COMPLETADA
+                </div>
+                <h3 className="text-2xl font-serif text-amber-100 font-bold tracking-wide">
+                  ¡Cadenas Rotas!
+                </h3>
+                <p className="text-xs text-slate-300 italic font-serif leading-relaxed px-2">
+                  "Así que, si el Hijo os libertare, seréis verdaderamente libres."
+                </p>
+                <p className="text-[10px] font-mono text-[#d4a359] tracking-widest uppercase">
+                  Juan 8:36
+                </p>
+              </motion.div>
+            </motion.div>
+          )}
+
+          {activeTransition === 'contract' && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className={`absolute inset-0 rounded-2xl z-50 flex flex-col justify-center items-center text-center p-6 overflow-hidden ${
+                isReadingMode ? 'bg-[#0b0805]' : 'bg-slate-950'
+              }`}
+              id="transition-overlay-contract"
+            >
+              {/* Parchment/Contract Animation */}
+              <motion.div
+                initial={{ scale: 0.8, y: 40, opacity: 0 }}
+                animate={{ scale: 1, y: 0, opacity: 1 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                className={`relative w-72 p-5 rounded-lg border shadow-2xl overflow-hidden max-w-[90%] ${
+                  isReadingMode 
+                    ? 'bg-[#180f08] border-[#361a06] shadow-black/80' 
+                    : 'bg-[#121620] border-slate-800 shadow-slate-950/80'
+                }`}
+              >
+                {/* Royal patterns/corners */}
+                <div className="absolute top-1 left-1 w-2.5 h-2.5 border-t border-l border-amber-500/45" />
+                <div className="absolute top-1 right-1 w-2.5 h-2.5 border-t border-r border-amber-500/45" />
+                <div className="absolute bottom-1 left-1 w-2.5 h-2.5 border-b border-l border-amber-500/45" />
+                <div className="absolute bottom-1 right-1 w-2.5 h-2.5 border-b border-r border-amber-500/45" />
+
+                <div className="text-center font-serif py-1 border-b border-amber-500/10 mb-3">
+                  <h4 className="text-[10px] uppercase font-mono tracking-widest text-[#d4a359] mb-1">
+                    Pacto en la Sangre de Cristo
+                  </h4>
+                  <p className="text-xs font-semibold text-amber-100">TESTAMENTO DE ADOPCIÓN</p>
+                </div>
+
+                <div className="space-y-2 text-left text-[10px] sm:text-xs leading-relaxed text-slate-300 font-serif">
+                  <p className="italic">
+                    "Mas a todos los que le recibieron, a los que creen en su nombre, les dio potestad de ser hechos <strong className="text-amber-100">hijos de Dios</strong>."
+                  </p>
+                  <p className="text-right text-[9px] font-mono text-slate-400/80">- Juan 1:12</p>
+                  
+                  {/* Custom active values reflecting user responses inside the certificate context! */}
+                  <div className="mt-2.5 p-2 bg-slate-950/60 rounded border border-slate-900/60 font-sans space-y-1">
+                    <p className="text-[9px] text-[#d4a359] uppercase font-mono">Heredero Restaurado:</p>
+                    <p className="text-[11px] font-serif text-amber-100/90 italic font-semibold">
+                      "{responses.restoredDetails || responses.lostTraits.join(', ') || 'Mi paz y dignidad'}"
+                    </p>
+                  </div>
+                </div>
+
+                {/* Animated Signature writing itself in real-time */}
+                <div className="mt-4 flex justify-between items-end border-t border-[#d4a359]/10 pt-3">
+                  <div className="text-left">
+                    <span className="block text-[8px] font-mono text-slate-500">SEALED BY:</span>
+                    <span className="text-[10px] font-sans text-emerald-400 font-semibold flex items-center gap-0.5">
+                      <Lock className="w-2.5 h-2.5" /> El Espíritu Santo
+                    </span>
+                  </div>
+
+                  <div className="relative text-right pr-2">
+                    <span className="block text-[8px] font-mono text-slate-500">FIRMA DEL REDENTOR:</span>
+                    {/* Glowing gold cursive signature effect */}
+                    <motion.span
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={{ width: "auto", opacity: 1 }}
+                      transition={{ delay: 1.1, duration: 1.4, ease: "easeInOut" }}
+                      className="inline-block overflow-hidden whitespace-nowrap text-xs text-[#d4a359] font-serif italic tracking-wide font-bold"
+                    >
+                      ✦ Consumado Es ✦
+                    </motion.span>
+                    
+                    {/* Tiny feather helper brush animation */}
+                    <motion.div
+                      animate={{ 
+                        x: [0, 8, 25, 45, 68, 85],
+                        y: [-2, -8, -1, -6, -2, -5],
+                        opacity: [0, 1, 1, 1, 1, 0]
+                      }}
+                      transition={{ delay: 1, duration: 1.6, ease: "linear" }}
+                      className="absolute -top-3 left-0 text-amber-300 pointer-events-none"
+                    >
+                      <Feather className="w-4 h-4 rotate-45" />
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Wax seal simulation absolute in bottom right corner */}
+                <motion.div
+                  initial={{ scale: 0, rotate: -45, opacity: 0 }}
+                  animate={{ scale: 1, rotate: 0, opacity: 0.95 }}
+                  transition={{ delay: 2.2, duration: 0.6, type: "spring", stiffness: 200 }}
+                  className="absolute bottom-2 right-2 w-7 h-7 rounded-full bg-rose-700/90 border border-red-500/30 flex items-center justify-center shadow-lg shadow-black/80"
+                  title="Sello del Pacto de Sangre"
+                >
+                  <Award className="w-4 h-4 text-amber-200" />
+                </motion.div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2.4, duration: 0.5 }}
+                className="mt-4"
+              >
+                <div className="inline-block px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-[#d4a359] text-[10px] font-mono rounded-full uppercase tracking-widest mb-1.5 font-sans">
+                  ESTACIÓN 2 COMPLETADA
+                </div>
+                <h4 className="text-sm font-serif text-amber-100 font-semibold px-4">Tus Atributos han sido Clavados y Restaurados</h4>
+              </motion.div>
+            </motion.div>
+          )}
+
+          {activeTransition === 'prison' && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className={`absolute inset-0 rounded-2xl z-50 flex flex-col justify-center items-center text-center p-6 overflow-hidden ${
+                isReadingMode ? 'bg-[#0b0805]' : 'bg-slate-950'
+              }`}
+              id="transition-overlay-prison"
+            >
+              {/* Prison Gate Opening Animation in 3D */}
+              <div className="relative w-56 h-48 flex items-center justify-center">
+                
+                {/* Back Light (glowing golden back rays) representing freedom */}
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ 
+                    scale: [0.2, 1.4, 2.5], 
+                    opacity: [0, 0.45, 0.85] 
+                  }}
+                  transition={{ delay: 0.8, duration: 2.2, ease: "easeOut" }}
+                  className="absolute w-24 h-24 rounded-full bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-500 blur-2xl opacity-80"
+                />
+
+                {/* Left Gate Panel */}
+                <motion.div
+                  initial={{ rotateY: 0, transformOrigin: "left" }}
+                  animate={{ rotateY: [0, -15, -115, -125] }}
+                  transition={{ duration: 2.5, delay: 0.5, ease: "easeInOut" }}
+                  className="absolute left-6 w-20 h-36 border-4 border-slate-700/80 bg-slate-900/40 rounded shadow-2xl flex flex-col justify-between p-2 z-25 transform perspective-500"
+                >
+                  <div className="h-full w-full flex justify-around">
+                    <div className="w-1.5 h-full bg-slate-600/80 rounded" />
+                    <div className="w-1.5 h-full bg-slate-600/80 rounded" />
+                    <div className="w-1.5 h-full bg-slate-600/80 rounded" />
+                  </div>
+                </motion.div>
+
+                {/* Right Gate Panel */}
+                <motion.div
+                  initial={{ rotateY: 0, transformOrigin: "right" }}
+                  animate={{ rotateY: [0, 15, 115, 125] }}
+                  transition={{ duration: 2.5, delay: 0.5, ease: "easeInOut" }}
+                  className="absolute right-6 w-20 h-36 border-4 border-slate-700/80 bg-slate-900/40 rounded shadow-2xl flex flex-col justify-between p-2 z-25 transform perspective-500"
+                >
+                  <div className="h-full w-full flex justify-around">
+                    <div className="w-1.5 h-full bg-slate-600/80 rounded" />
+                    <div className="w-1.5 h-full bg-slate-600/80 rounded" />
+                    <div className="w-1.5 h-full bg-slate-600/80 rounded" />
+                  </div>
+                </motion.div>
+
+                {/* Hanging Padlock that shatters */}
+                <motion.div
+                  initial={{ scale: 1, y: 0, opacity: 1, rotate: 0 }}
+                  animate={{ 
+                    scale: [1, 1.25, 1.15, 0.4, 0],
+                    y: [0, -4, 2, 45, 120],
+                    opacity: [1, 1, 1, 0, 0],
+                    rotate: [0, -10, 15, -35, -45]
+                  }}
+                  transition={{ duration: 1.4, delay: 0.45, ease: "backIn" }}
+                  className="absolute z-30 w-12 h-14 bg-gradient-to-b from-slate-600 to-slate-800 rounded-b-lg border-2 border-slate-500 flex flex-col items-center justify-center shadow-lg"
+                >
+                  {/* Lock shackle */}
+                  <div className="absolute -top-5 w-8 h-8 border-4 border-slate-500 rounded-t-full border-b-0" />
+                  <Lock className="w-5 h-5 text-amber-500/80 animate-pulse" />
+                </motion.div>
+
+                {/* Padlock break sparks */}
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ 
+                    scale: [0, 1.5, 0],
+                    opacity: [0, 1, 0]
+                  }}
+                  transition={{ duration: 0.5, delay: 0.45 }}
+                  className="absolute z-35 w-16 h-16 bg-yellow-300 rounded-full blur-sm"
+                />
+              </div>
+
+              {/* Transition Text overlay (shining through opening) */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 15 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ delay: 1.1, duration: 1 }}
+                className="space-y-3 max-w-sm px-4"
+              >
+                <div className="inline-block px-3 py-1 bg-[#d4a359]/25 border border-[#d4a359]/40 text-amber-200 text-[10px] font-mono rounded-full uppercase tracking-widest animate-pulse font-sans">
+                  ¡PUERTAS ABIERTAS!
+                </div>
+                <h3 className="text-2xl font-serif text-amber-100 font-bold tracking-wide">
+                  El Traslado de Reino
+                </h3>
+                <p className="text-xs text-slate-200 font-serif leading-relaxed italic px-2">
+                  "Nos ha librado de la potestad de las tinieblas y trasladado al reino de Su amado Hijo."
+                </p>
+                <p className="text-[10px] font-mono text-[#d4a359] tracking-widest uppercase">
+                  Colosenses 1:13
+                </p>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
       {/* Aesthetic Footer / Credit banner */}
