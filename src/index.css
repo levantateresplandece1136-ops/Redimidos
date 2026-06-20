@@ -49,3 +49,59 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(212, 163, 89, 0.5);
 }
+
+/* ==========================================================================
+   CONTEMPLATIVE READING MODE FOR THE DEVOTIONAL FRAME (#devotional-card)
+   Enhances spacing, font legibility, tracking and line height for meditation.
+   ========================================================================== */
+
+#devotional-card.reading-mode-active {
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure all prose paragraphs, labels and inputs inside the read mode card are highly readable and spaced */
+#devotional-card.reading-mode-active p,
+#devotional-card.reading-mode-active label,
+#devotional-card.reading-mode-active li,
+#devotional-card.reading-mode-active blockquote,
+#devotional-card.reading-mode-active textarea,
+#devotional-card.reading-mode-active .welcome-text-reader {
+  font-family: "Playfair Display", Georgia, serif !important;
+  line-height: 1.95 !important;  /* Elegant, spacious line-height for contemplative reading */
+  letter-spacing: 0.025em !important;
+  word-spacing: 0.03em !important;
+}
+
+#devotional-card.reading-mode-active h1,
+#devotional-card.reading-mode-active h2,
+#devotional-card.reading-mode-active h3,
+#devotional-card.reading-mode-active h4 {
+  font-family: "Playfair Display", Georgia, serif !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.04em !important;
+  font-weight: 600 !important;
+  text-rendering: optimizeLegibility;
+}
+
+/* Highlight quotes and declarations */
+#devotional-card.reading-mode-active blockquote {
+  font-style: italic;
+  font-size: 1.05em !important;
+  line-height: 1.9 !important;
+}
+
+/* Make normal system text within the card look exceptionally soft & elegant */
+#devotional-card.reading-mode-active span:not(.font-mono) {
+  letter-spacing: 0.03em !important;
+}
+
+/* Subtle extra vertical spacing to separate paragraphs contemplatively */
+#devotional-card.reading-mode-active p {
+  margin-bottom: 1.25rem;
+}
+
+/* Keep mono variables/counters looking neat in serif mode */
+#devotional-card.reading-mode-active .font-mono {
+  font-family: var(--font-mono) !important;
+}
+

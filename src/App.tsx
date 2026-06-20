@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ScreenId, UserResponses, INITIAL_RESPONSES } from './types';
+import { jsPDF } from 'jspdf';
 import { 
   ChainIllustration, 
   HearthIllustration, 
@@ -444,48 +445,259 @@ MI RESPUESTA DE GRATITUD:
     });
   };
 
-  // Download dossier as local .txt file
-  const downloadDossierText = () => {
-    const text = `===========================================
-REFLEXIÓN PERSONAL: RECUERDA DE DÓNDE TE SACÓ
-Una experiencia de redención para consejeros bíblicos
-===========================================
+  // Download dossier as a beautifully formatted PDF file
+  const downloadDossierPDF = () => {
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
 
-ESTACIÓN 1: EL ESCLAVO RESCATADO
-- Luchas o temores que ejercían dominio: ${responses.struggles.join(', ') || 'Ninguno'}
-- Mi lucha bajo mis propias fuerzas:
-  "${responses.selfEffort || 'Sin respuesta'}"
-- Mi agradecimiento por la liberación:
-  "${responses.gratitudeLiberation || 'Sin respuesta'}"
+    let y = 20;
 
-ESTACIÓN 2: EL HEREDERO RESTAURADO
-- Lo que sentía que había perdido: ${responses.lostTraits.join(', ') || 'Ninguno'}
-- Lo que Dios me ha devuelto hoy:
-  "${responses.restoredDetails || 'Sin respuesta'}"
-- Declaración restaurada:
-  "Gracias Jesús, porque restauraste: ${responses.restorationSentence || '...'}"
+    // Helper to ensure enough space for next section on current page
+    const checkSpace = (required: number) => {
+      if (y + required > 275) {
+        doc.addPage();
+        y = 20;
+        // Top accent line for subsequent pages
+        doc.setDrawColor(212, 163, 89);
+        doc.setLineWidth(0.5);
+        doc.line(20, 12, 190, 12);
+        
+        // Footer pagination indicator (Page)
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(150, 150, 150);
+        doc.text(`Página ${doc.getNumberOfPages()}`, 105, 287, { align: 'center' });
+      }
+    };
 
-ESTACIÓN 3: EL PRISIONERO LIBERADO
-- Mentira que solía gobernarme:
-  "${responses.believedLie || 'Sin respuesta'}"
-- Verdad del Evangelio que reina hoy:
-  "${responses.governingTruth || 'Sin respuesta'}"
+    // Draw page border
+    doc.setDrawColor(212, 163, 89);
+    doc.setLineWidth(0.8);
+    // Draw boundary box around A4 (210 x 297)
+    doc.rect(10, 10, 190, 277);
 
-MI RESPUESTA DE GRATITUD:
-- Mi oración personal conversando con Cristo:
-  "${responses.prayer || 'Sin respuesta'}"
+    // Decorative top golden rule
+    doc.setDrawColor(212, 163, 89);
+    doc.setLineWidth(1.5);
+    doc.line(15, 18, 195, 18);
 
--------------------------------------------
-"Porque el Hijo del Hombre vino a buscar y a salvar lo que se había perdido." - Lucas 19:10
-===========================================`;
+    // Document Header
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.setTextColor(30, 41, 59); // Dark slate
+    doc.text('REFLEXIÓN PERSONAL DE REDENCIÓN', 105, 27, { align: 'center' });
 
-    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `Mi_Reflexion_Redencion_${new Date().toISOString().slice(0,10)}.txt`;
-    link.click();
-    URL.revokeObjectURL(url);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9.5);
+    doc.setTextColor(92, 85, 74); // Muted gold/brown
+    doc.text('RECUERDA DE DÓNDE TE SACÓ — EXPERIENCIA DEVOCIONAL', 105, 33, { align: 'center' });
+
+    // Confidencial tag and Date
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120);
+    const dateStr = new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+    doc.text(`Fecha: ${dateStr}  |  Curso de Consejería Bíblica  |  Privado y Confidencial`, 105, 38, { align: 'center' });
+
+    // Decorative division
+    doc.setDrawColor(220, 220, 220);
+    doc.setLineWidth(0.5);
+    doc.line(20, 43, 190, 43);
+
+    y = 52;
+
+    // Helper function to draw a section title nicely
+    const drawSectionTitle = (title: string, subtitle: string) => {
+      checkSpace(25);
+      
+      // Draw solid left colored band marker
+      doc.setFillColor(212, 163, 89);
+      doc.rect(15, y - 4, 3, 7, 'F');
+
+      // Title Text
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.setTextColor(30, 41, 59);
+      doc.text(title, 21, y);
+
+      // Subtitle indicator
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(8);
+      doc.setTextColor(140, 110, 70);
+      doc.text(subtitle, 195, y, { align: 'right' });
+
+      y += 6;
+
+      // Thin divider
+      doc.setDrawColor(212, 163, 89);
+      doc.setLineWidth(0.3);
+      doc.line(15, y, 195, y);
+      
+      y += 6;
+    };
+
+    // Helper to render question & answer blocks
+    const drawQA = (question: string, answer: string) => {
+      checkSpace(20);
+      
+      // Question header
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor(92, 85, 74);
+      
+      const wrappedQuestion: string[] = doc.splitTextToSize(question, 175);
+      wrappedQuestion.forEach(qLine => {
+        checkSpace(5);
+        doc.text(qLine, 18, y);
+        y += 4;
+      });
+      y += 1;
+
+      // Answer block
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9.5);
+      doc.setTextColor(40, 40, 40);
+      
+      const wrappedLines: string[] = doc.splitTextToSize(answer || 'Sin respuesta registrada en esta etapa.', 170);
+      wrappedLines.forEach(line => {
+        checkSpace(5);
+        doc.text(line, 20, y);
+        y += 4.5;
+      });
+      y += 2.5; // space after block
+    };
+
+    // ==========================================
+    // ESTACIÓN 1
+    // ==========================================
+    drawSectionTitle('ESTACIÓN 1: EL ESCLAVO RESCATADO', 'Liberación Real de Cristo');
+    drawQA(
+      '• Luchas, temores o ídolos del corazón que ejercían dominio en mi vida:',
+      responses.struggles.join(', ') || 'Ninguno seleccionado.'
+    );
+    drawQA(
+      '• ¿Cómo intentaba lidiar con estas luchas bajo mis propias fuerzas humanas?:',
+      responses.selfEffort
+    );
+    drawQA(
+      '• En oración y fe, mi expresión de rendición y gratitud eterna a Jesús por Su rescate:',
+      responses.gratitudeLiberation
+    );
+
+    y += 2;
+
+    // ==========================================
+    // ESTACIÓN 2
+    // ==========================================
+    drawSectionTitle('ESTACIÓN 2: EL HEREDERO RESTAURADO', 'Devolución de la Dignidad');
+    drawQA(
+      '• Atributos, virtudes o herencias que sentía haber perdido o destruido debido al pecado:',
+      responses.lostTraits.join(', ') || 'Ninguno seleccionado.'
+    );
+    drawQA(
+      '• Lo que reconozco que Cristo, en Su innegable misericordia, me ha devuelto hoy:',
+      responses.restoredDetails
+    );
+    drawQA(
+      '• Declaración solemne del Heredero frente al trono de gracia:',
+      `"Gracias Jesús, porque me has devuelto y restaurado: ${responses.restorationSentence || '...'}"`
+    );
+
+    y += 2;
+
+    // ==========================================
+    // ESTACIÓN 3
+    // ==========================================
+    drawSectionTitle('ESTACIÓN 3: EL PRISIONERO LIBERADO', 'Renovación del Entendimiento');
+    drawQA(
+      '• La mentira del enemigo que solía gobernar mi mente o autovaloración:',
+      responses.believedLie
+    );
+    drawQA(
+      '• La Verdad del Evangelio y de mi identidad que hoy gobierna mi vida:',
+      responses.governingTruth
+    );
+
+    y += 2;
+
+    // ==========================================
+    // RESPUESTA DE GRATITUD / PRAYER
+    // ==========================================
+    drawSectionTitle('ORACIÓN CONSOLIDADA DE GRATITUD A CRISTO', 'Ofrenda del Corazón');
+
+    // Draw beautiful parchment box for the personal prayer
+    doc.setFillColor(252, 250, 246); // Off-white/cream paper feel background
+    doc.setDrawColor(212, 163, 89);
+    doc.setLineWidth(0.4);
+    
+    const prayerLines: string[] = doc.splitTextToSize(responses.prayer || 'Sin oración registrada.', 164);
+    const boxHeight = (prayerLines.length * 4.5) + 10;
+    
+    // Ensure we have enough space for the prayer box on this page or next
+    if (y + boxHeight > 265) {
+      doc.addPage();
+      y = 20;
+      doc.rect(10, 10, 190, 277);
+      
+      // Top accent line
+      doc.setDrawColor(212, 163, 89);
+      doc.setLineWidth(0.5);
+      doc.line(20, 12, 190, 12);
+    }
+    
+    // Draw background rect
+    doc.rect(18, y, 174, boxHeight, 'F');
+    // Draw outline
+    doc.rect(18, y, 174, boxHeight, 'S');
+
+    // Write prayer text
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(9.5);
+    doc.setTextColor(44, 40, 36); // Sepia charcoal
+
+    let textY = y + 7;
+    prayerLines.forEach(line => {
+      doc.text(line, 23, textY);
+      textY += 4.5;
+    });
+
+    y += boxHeight + 10;
+
+    // ==========================================
+    // FOOTER (SCRIPTURE VERSE & CREDITS)
+    // ==========================================
+    checkSpace(25);
+    
+    doc.setDrawColor(212, 163, 89);
+    doc.setLineWidth(0.4);
+    doc.line(30, y, 180, y);
+    y += 5;
+
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(9);
+    doc.setTextColor(92, 85, 74);
+    doc.text('"Porque el Hijo del Hombre vino a buscar y a salvar lo que se había perdido."', 105, y, { align: 'center' });
+    y += 4.5;
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8.5);
+    doc.setTextColor(130, 110, 80);
+    doc.text('Lucas 19:10', 105, y, { align: 'center' });
+    
+    // Draw pagination for page 1 if multiple pages exist
+    const totalPages = doc.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(150, 150, 150);
+      doc.text(`Página ${i} de ${totalPages}`, 105, 287, { align: 'center' });
+    }
+
+    doc.save(`Reflexion_Personal_Redencion_${new Date().toISOString().slice(0, 10)}.pdf`);
   };
 
   return (
@@ -585,7 +797,7 @@ MI RESPUESTA DE GRATITUD:
             : (screen === 'culminating'
               ? 'bg-slate-50 border-amber-300 shadow-2xl shadow-yellow-500/20 text-slate-900' 
               : 'border-slate-800/80 shadow-xl shadow-black/80 text-slate-100')
-        }`}
+        } ${isReadingMode ? 'reading-mode-active' : ''}`}
         style={{ minHeight: '610px' }}
       >
         {/* Gratitude/Grace Count Tracker in the corner of the card */}
@@ -1502,11 +1714,11 @@ MI RESPUESTA DE GRATITUD:
 
                       <p className={`text-[11px] italic text-center transition-all duration-300 ${
                         !(declaredDeclarations.liberacion && declaredDeclarations.restauracion && declaredDeclarations.verdad)
-                          ? 'text-amber-400 font-semibold bg-amber-500/10 py-1.5 px-3 rounded-lg border border-amber-500/20'
+                          ? 'text-amber-400/90 bg-amber-500/5 py-1.5 px-3 rounded-lg border border-amber-500/10'
                           : 'text-slate-500'
                       }`}>
                         {!(declaredDeclarations.liberacion && declaredDeclarations.restauracion && declaredDeclarations.verdad)
-                          ? '⚠️ Por favor, proclama las 3 declaraciones de arriba (Estación 1, 2 y 3) para habilitar tu oración de gratitud y poder continuar al Cierre.'
+                          ? '💡 Consejo: Presiona las Estaciones 1, 2 y 3 arriba para proclamar tu fe y autocomponer tu oración, o escribe tu propio corazón aquí directamente.'
                           : '✨ ¡Tus 3 declaraciones de gracia han sido consolidadas! Puedes ajustar el texto de tu oración devocional de ofrenda a mano.'
                         }
                       </p>
@@ -1527,10 +1739,7 @@ MI RESPUESTA DE GRATITUD:
                     </button>
                     <button
                       onClick={() => setScreen('cierre')}
-                      disabled={
-                        !(declaredDeclarations.liberacion && declaredDeclarations.restauracion && declaredDeclarations.verdad) || 
-                        !responses.prayer.trim()
-                      }
+                      disabled={!responses.prayer.trim()}
                       className="px-5 py-2.5 bg-[#d4a359] hover:bg-amber-400 text-slate-950 text-xs font-bold rounded-lg flex items-center gap-1.5 transition duration-300 disabled:bg-slate-800 disabled:text-slate-500 select-none cursor-pointer shadow-lg shadow-black/40"
                       id="gratitude-next"
                     >
@@ -1612,13 +1821,13 @@ MI RESPUESTA DE GRATITUD:
                         </button>
                         
                         <button
-                          onClick={downloadDossierText}
+                          onClick={downloadDossierPDF}
                           className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white rounded-lg text-xs hover:border-slate-700 transition"
-                          title="Descargar dossier completo como un archivo de texto .txt"
+                          title="Descargar dossier completo como un documento PDF listo para imprimir"
                           id="btn-download-dossier"
                         >
                           <Download className="w-3.5 h-3.5 text-amber-400" />
-                          <span>Descargar Recuerdo (.txt)</span>
+                          <span>Descargar Recuerdo (.pdf)</span>
                         </button>
                       </div>
                     </div>
