@@ -55,8 +55,18 @@ body {
    Enhances spacing, font legibility, tracking and line height for meditation.
    ========================================================================== */
 
+#devotional-card {
+  font-size: 1.1rem !important; /* Larger base font for overall card */
+}
+
 #devotional-card.reading-mode-active {
-  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 1.35rem !important; /* Even larger base size in reading mode for better legibility */
+  font-variant-ligatures: common-ligatures;
+  font-variant-numeric: oldstyle-nums;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Ensure all prose paragraphs, labels and inputs inside the read mode card are highly readable and spaced */
@@ -67,9 +77,10 @@ body {
 #devotional-card.reading-mode-active textarea,
 #devotional-card.reading-mode-active .welcome-text-reader {
   font-family: "Playfair Display", Georgia, serif !important;
-  line-height: 1.95 !important;  /* Elegant, spacious line-height for contemplative reading */
-  letter-spacing: 0.025em !important;
-  word-spacing: 0.03em !important;
+  font-size: 1.25rem !important; /* Generous font sizing for cozy reading */
+  line-height: 1.95 !important;  /* Elegant, spacious line-height (interlineado) for contemplative reading */
+  letter-spacing: 0.035em !important;
+  word-spacing: 0.04em !important;
 }
 
 #devotional-card.reading-mode-active h1,
@@ -77,17 +88,22 @@ body {
 #devotional-card.reading-mode-active h3,
 #devotional-card.reading-mode-active h4 {
   font-family: "Playfair Display", Georgia, serif !important;
-  line-height: 1.6 !important;
+  line-height: 1.5 !important;
   letter-spacing: 0.04em !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   text-rendering: optimizeLegibility;
 }
+
+#devotional-card.reading-mode-active h1 { font-size: 2rem !important; }
+#devotional-card.reading-mode-active h2 { font-size: 1.75rem !important; }
+#devotional-card.reading-mode-active h3 { font-size: 1.5rem !important; }
+#devotional-card.reading-mode-active h4 { font-size: 1.35rem !important; }
 
 /* Highlight quotes and declarations */
 #devotional-card.reading-mode-active blockquote {
   font-style: italic;
-  font-size: 1.05em !important;
-  line-height: 1.9 !important;
+  font-size: 1.25rem !important;
+  line-height: 1.8 !important;
 }
 
 /* Make normal system text within the card look exceptionally soft & elegant */
@@ -97,11 +113,12 @@ body {
 
 /* Subtle extra vertical spacing to separate paragraphs contemplatively */
 #devotional-card.reading-mode-active p {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.4rem;
 }
 
 /* Keep mono variables/counters looking neat in serif mode */
 #devotional-card.reading-mode-active .font-mono {
   font-family: var(--font-mono) !important;
+  font-size: 0.95rem !important;
 }
 

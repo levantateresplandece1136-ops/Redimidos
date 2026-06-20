@@ -166,20 +166,20 @@ export default function App() {
 
   // Dynamic class helpers for Reading Mode (increased line height and warmer contrast)
   const paragraphClass = isReadingMode 
-    ? 'text-[14px] sm:text-[15px] leading-[1.8] text-amber-200/95 font-serif' 
-    : 'text-xs sm:text-sm leading-relaxed text-slate-400';
+    ? 'text-base sm:text-lg leading-[1.8] text-amber-200/95 font-serif' 
+    : 'text-sm sm:text-base leading-relaxed text-slate-300';
 
   const headingClass = isReadingMode
-    ? 'text-xl sm:text-2xl font-serif text-amber-100 font-bold tracking-normal'
-    : 'text-xl sm:text-2xl font-serif text-slate-200 tracking-tight leading-snug';
+    ? 'text-2xl sm:text-3xl font-serif text-amber-100 font-bold tracking-normal'
+    : 'text-2xl sm:text-3xl font-serif text-slate-100 tracking-tight leading-snug';
 
   const welcomeTextClass = isReadingMode
-    ? 'text-sm sm:text-[15px] leading-[1.8] text-amber-200/95 font-serif space-y-5'
-    : 'space-y-4 text-slate-300 text-sm sm:text-[15px] leading-relaxed';
+    ? 'text-base sm:text-lg leading-[1.8] text-amber-200/95 font-serif space-y-5'
+    : 'space-y-4 text-[#e2e8f0] text-base sm:text-lg leading-relaxed';
 
   const quoteClass = isReadingMode
-    ? 'border-l-2 border-[#d4a359]/40 pl-3 italic text-amber-300/80 font-serif leading-[1.8]'
-    : 'border-l-2 border-[#d4a359]/30 pl-3 italic text-slate-400';
+    ? 'border-l-2 border-[#d4a359]/40 pl-3 italic text-amber-200/90 font-serif leading-[1.8] text-base sm:text-lg'
+    : 'border-l-2 border-[#d4a359]/30 pl-3 italic text-slate-300 text-sm sm:text-base';
 
   const inputStyleClass = isReadingMode
     ? 'bg-[#080503] border-amber-950 text-amber-100 placeholder:text-amber-900/50 focus:border-amber-800 focus:ring-1 focus:ring-amber-950/50'
@@ -854,17 +854,14 @@ MI RESPUESTA DE GRATITUD:
                   </p>
 
                   <div className={`${welcomeTextClass} text-center px-1 max-w-sm`}>
-                    <p>
-                      Durante unos minutos no pienses como consejero.
+                    <p className="font-semibold text-amber-100">
+                      No pienses como consejero por un instante. Piensa únicamente en ti.
                     </p>
                     <p className={quoteClass}>
-                      "No pienses en las personas a quienes ayudas. Piensa en ti. Recuerda quién eras. Recuerda quién eres hoy."
+                      "No pienses en las personas a quienes ayudas. Recuerda quién eras... y quién eres hoy por pura gracia."
                     </p>
                     <p>
-                      Porque quienes olvidan de dónde fueron rescatados corren el riesgo de ministrar sin asombro.
-                    </p>
-                    <p className={`font-semibold ${isReadingMode ? 'text-amber-200' : 'text-amber-100'}`}>
-                      Pero quienes recuerdan su propia redención sirven con humildad, compasión y gratitud.
+                      Olvidar de dónde fuimos rescatados extingue el asombro. Recordar nuestra propia redención despierta compasión y profunda humildad.
                     </p>
                   </div>
 
@@ -883,19 +880,18 @@ MI RESPUESTA DE GRATITUD:
                       COMENZAR LA EXPERIENCIA
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </button>
-                    <p className="text-[10px] text-slate-600 mt-2.5 font-mono">
+                    <p className="text-xs text-slate-500 mt-2.5 font-mono">
                       Duración estimada: 7 - 10 minutos
                     </p>
                   </div>
                 </div>
               )}
 
-
               {/* SCREEN: ESTACIÓN 1 - STRUGGLES / PREDISPOCISIÓN (A) */}
               {screen === 'station1_struggles' && (
                 <div id="screen-station-1a" className="flex flex-col justify-between h-full">
                   <div>
-                    <div className="flex items-center justify-center gap-2 text-rose-300/90 text-[11px] font-mono tracking-widest uppercase mb-1">
+                    <div className="flex items-center justify-center gap-2 text-rose-300/90 text-xs font-mono tracking-widest uppercase mb-1">
                       <Flame className="w-3.5 h-3.5" />
                       <span>Estación 1: El Esclavo Rescatado</span>
                     </div>
@@ -906,16 +902,16 @@ MI RESPUESTA DE GRATITUD:
 
                     {/* Verse Box */}
                     <div className={`${isReadingMode ? 'bg-[#0a0502]/85 border-amber-900/10' : 'bg-slate-950/40 border-slate-800/20'} p-3.5 rounded-xl border text-center my-4 font-serif`}>
-                      <p className={`${isReadingMode ? 'text-amber-200/90' : 'text-slate-300'} text-xs italic`}>
+                      <p className={`${isReadingMode ? 'text-amber-200/90' : 'text-slate-300'} text-sm italic`}>
                         "Todo aquel que hace pecado, esclavo es del pecado."
                       </p>
-                      <p className={`${isReadingMode ? 'text-amber-500' : 'text-slate-500'} text-[10px] font-mono mt-1 uppercase tracking-widest`}>
+                      <p className={`${isReadingMode ? 'text-amber-500' : 'text-slate-500'} text-xs font-mono mt-1 uppercase tracking-widest`}>
                         Juan 8:34
                       </p>
                     </div>
 
                     <p className={`${paragraphClass} text-center mb-4`}>
-                      ¿Qué lucha, pecado o temor ejercía dominio sobre tu vida en el pasado (o sigue llamando a tu puerta)? Selecciona las aplicables y añade si es necesario.
+                      ¿Qué lucha, pecado o temor ejercía dominio sobre tu vida? Selecciona o añade los tuyos:
                     </p>
 
                     {/* Tag list */}
@@ -926,13 +922,13 @@ MI RESPUESTA DE GRATITUD:
                           <button
                             key={struggle}
                             onClick={() => toggleStruggle(struggle)}
-                            className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-300 flex items-center gap-1 ${
+                            className={`px-3.5 py-2 rounded-full text-sm font-medium border transition-all duration-300 flex items-center gap-1.5 ${
                               isSelected 
-                                ? 'bg-[#d4a359]/20 border-[#d4a359] text-amber-200' 
-                                : (isReadingMode ? 'bg-[#120a06]/40 border-amber-950/30 text-amber-400 hover:border-amber-900/40' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:border-slate-700')
+                                ? 'bg-[#d4a359]/20 border-[#d4a359] text-amber-100' 
+                                : (isReadingMode ? 'bg-[#120a06]/40 border-amber-950/30 text-amber-400 hover:border-amber-900/40' : 'bg-slate-900/50 border-slate-800 text-slate-300 hover:border-slate-700')
                             }`}
                           >
-                            {isSelected && <Check className="w-3.5 h-3.5" />}
+                            {isSelected && <Check className="w-4 h-4" />}
                             {struggle}
                           </button>
                         );
@@ -940,13 +936,13 @@ MI RESPUESTA DE GRATITUD:
                     </div>
 
                     {/* Custom input struggles descriptor */}
-                    <div className="mt-3.5 flex gap-2">
+                    <div className="mt-4 flex gap-2">
                       <input
                         type="text"
                         value={customStruggleInput}
                         onChange={(e) => setCustomStruggleInput(e.target.value)}
                         placeholder="Otro temor o lucha..."
-                        className={`text-xs rounded-lg px-3 py-2 flex-grow focus:outline-none ${inputStyleClass}`}
+                        className={`text-sm rounded-lg px-3.5 py-2.5 flex-grow focus:outline-none ${inputStyleClass}`}
                         onKeyDown={(e) => {
                           if (e.key === 'Enter' && customStruggleInput.trim()) {
                             toggleStruggle(customStruggleInput.trim());
@@ -961,7 +957,7 @@ MI RESPUESTA DE GRATITUD:
                             setCustomStruggleInput('');
                           }
                         }}
-                        className="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-2 rounded-lg border border-slate-700 transition"
+                        className="bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm px-4 py-2.5 rounded-lg border border-slate-700 transition"
                       >
                         Añadir
                       </button>
@@ -969,26 +965,26 @@ MI RESPUESTA DE GRATITUD:
 
                     {/* Selected List placeholder to enforce selection */}
                     {responses.struggles.length === 0 && (
-                      <p className="text-[11px] text-rose-300/70 italic text-center mt-3 animate-pulse">
+                      <p className="text-xs text-rose-350/90 italic text-center mt-3 animate-pulse font-serif">
                         * Por favor selecciona al menos una lucha para continuar
                       </p>
                     )}
                   </div>
 
-                  <div className="mt-8 flex justify-between gap-3 pt-4 border-t border-slate-900/60">
+                  <div className="mt-8 flex justify-between gap-3 pt-4 border-t border-slate-900/60 font-sans">
                     <button
                       onClick={navigateBack}
-                      className="px-4 py-2 text-xs text-slate-400 hover:text-slate-100 flex items-center gap-1.5 transition"
+                      className="px-4 py-2 text-sm text-slate-400 hover:text-slate-100 flex items-center gap-1.5 transition"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5" /> Volver
+                      <ArrowLeft className="w-4 h-4" /> Volver
                     </button>
                     <button
                       onClick={() => setScreen('station1_liberation')}
                       disabled={responses.struggles.length === 0}
-                      className="px-5 py-2.5 bg-[#d4a359] disabled:bg-slate-800 disabled:text-slate-500 hover:bg-amber-400 text-slate-950 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition duration-300 select-none cursor-pointer"
+                      className="px-5 py-3 bg-[#d4a359] disabled:bg-slate-800 disabled:text-slate-500 hover:bg-amber-400 text-slate-950 text-sm font-semibold rounded-lg flex items-center gap-1.5 transition duration-300 select-none cursor-pointer"
                       id="station-1a-next"
                     >
-                      Continuar <ArrowRight className="w-3.5 h-3.5" />
+                      Continuar <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -1002,10 +998,10 @@ MI RESPUESTA DE GRATITUD:
                     <ChainIllustration />
 
                     <div className={`${isReadingMode ? 'bg-[#0a0502]/85 border-[#2c1708]' : 'bg-slate-950/40 border-slate-800/20'} p-4 rounded-xl border text-center my-4`}>
-                      <p className={`${isReadingMode ? 'text-amber-200/90' : 'text-slate-400'} text-xs italic`}>
+                      <p className={`${isReadingMode ? 'text-amber-250/90' : 'text-slate-300'} text-sm italic`}>
                         "Habéis sido comprados por precio."
                       </p>
-                      <p className={`${isReadingMode ? 'text-amber-400' : 'text-[#d4a359]'} text-[10px] font-mono mt-0.5 tracking-widest font-semibold uppercase`}>
+                      <p className={`${isReadingMode ? 'text-amber-400' : 'text-[#d4a359]'} text-xs font-mono mt-0.5 tracking-widest font-semibold uppercase`}>
                         1 Corintios 6:20
                       </p>
                     </div>
@@ -1013,15 +1009,15 @@ MI RESPUESTA DE GRATITUD:
                     {/* Step 1: Self effort question */}
                     <div className="space-y-4">
                       <div>
-                        <label className={`block text-xs font-mono mb-1.5 uppercase tracking-wider ${isReadingMode ? 'text-amber-305/70' : 'text-slate-400'}`}>
-                          ¿Cómo te ha ido intentando vencerlo con tus propias fuerzas?
+                        <label className={`block text-sm font-semibold mb-1.5 uppercase tracking-wider ${isReadingMode ? 'text-amber-305/70' : 'text-slate-300'}`}>
+                          ¿Cómo te fue intentando vencerlo en tus propias fuerzas?
                         </label>
                         <textarea
                           value={responses.selfEffort}
                           onChange={(e) => setResponses(prev => ({ ...prev, selfEffort: e.target.value }))}
                           placeholder="Escribe brevemente tu experiencia de frustración antes de rendirte a Su providencia..."
                           rows={3}
-                          className={`w-full p-3 rounded-lg text-xs leading-relaxed focus:outline-none resize-none ${inputStyleClass}`}
+                          className={`w-full p-3.5 rounded-lg text-sm leading-relaxed focus:outline-none resize-none ${inputStyleClass}`}
                         />
                       </div>
 
@@ -1032,15 +1028,15 @@ MI RESPUESTA DE GRATITUD:
                           animate={{ opacity: 1, y: 0 }}
                           className="pt-2"
                         >
-                          <p className={`text-center text-sm font-serif italic p-2.5 rounded-lg mb-3 ${
+                          <p className={`text-center text-sm font-serif italic p-3 rounded-lg mb-3 ${
                             isReadingMode 
                               ? 'text-yellow-250 bg-[#2d1203]/40 border border-amber-950/50' 
-                              : 'text-amber-200/90 bg-[#d4a359]/5 border border-[#d4a359]/20'
+                              : 'text-amber-250 bg-[#d4a359]/5 border border-[#d4a359]/20'
                           }`}>
                             "Cristo pagó el precio que tú no podías pagar."
                           </p>
                           
-                          <label className={`block text-xs font-mono mb-1.5 uppercase tracking-wider ${isReadingMode ? 'text-amber-305/70' : 'text-slate-400'}`}>
+                          <label className={`block text-sm font-semibold mb-1.5 uppercase tracking-wider ${isReadingMode ? 'text-amber-305/70' : 'text-slate-300'}`}>
                             ¿Por qué aspecto de Su liberación agradeces hoy?
                           </label>
                           <input
@@ -1048,7 +1044,7 @@ MI RESPUESTA DE GRATITUD:
                             value={responses.gratitudeLiberation}
                             onChange={(e) => setResponses(prev => ({ ...prev, gratitudeLiberation: e.target.value }))}
                             placeholder="Ej. Por Su paz, por romper el ciclo de mi ira..."
-                            className={`w-full p-3 rounded-lg text-xs focus:outline-none ${inputStyleClass}`}
+                            className={`w-full p-3.5 rounded-lg text-sm focus:outline-none ${inputStyleClass}`}
                           />
                         </motion.div>
                       )}
@@ -1058,9 +1054,9 @@ MI RESPUESTA DE GRATITUD:
                   <div className="mt-8 flex justify-between gap-3 pt-4 border-t border-slate-900/60 font-sans">
                     <button
                       onClick={navigateBack}
-                      className="px-4 py-2 text-xs text-slate-400 hover:text-slate-100 flex items-center gap-1.5 transition"
+                      className="px-4 py-2 text-sm text-slate-400 hover:text-slate-100 flex items-center gap-1.5 transition"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5" /> Volver
+                      <ArrowLeft className="w-4 h-4" /> Volver
                     </button>
                     <button
                       onClick={() => {
@@ -1071,10 +1067,10 @@ MI RESPUESTA DE GRATITUD:
                         }, 3500);
                       }}
                       disabled={!responses.selfEffort.trim() || !responses.gratitudeLiberation.trim()}
-                      className="px-5 py-2.5 bg-[#d4a359] disabled:bg-slate-800 disabled:text-slate-500 hover:bg-amber-400 text-slate-950 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition duration-300 select-none cursor-pointer"
+                      className="px-5 py-3 bg-[#d4a359] disabled:bg-slate-800 disabled:text-slate-500 hover:bg-amber-400 text-slate-950 text-sm font-semibold rounded-lg flex items-center gap-1.5 transition duration-300 select-none cursor-pointer"
                       id="station-1b-next"
                     >
-                      A Estación 2 <ArrowRight className="w-3.5 h-3.5" />
+                      A Estación 2 <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -1085,7 +1081,7 @@ MI RESPUESTA DE GRATITUD:
               {screen === 'station2_lost' && (
                 <div id="screen-station-2a" className="flex flex-col justify-between h-full">
                   <div>
-                    <div className="flex items-center justify-center gap-2 text-amber-300 text-[11px] font-mono tracking-widest uppercase mb-1">
+                    <div className="flex items-center justify-center gap-2 text-amber-305 text-xs font-mono tracking-widest uppercase mb-1">
                       <Feather className="w-3.5 h-3.5 text-amber-400" />
                       <span>Estación 2: El Heredero Restaurado</span>
                     </div>
@@ -1096,20 +1092,20 @@ MI RESPUESTA DE GRATITUD:
 
                     {/* Scripture Box */}
                     <div className={`${isReadingMode ? 'bg-[#0a0502]/85 border-[#2c1708]' : 'bg-slate-950/40 border-slate-800/20'} p-3.5 rounded-xl border text-center my-4 font-serif`}>
-                      <p className={`${isReadingMode ? 'text-amber-250/90' : 'text-slate-300'} text-xs italic`}>
+                      <p className={`${isReadingMode ? 'text-amber-250/90' : 'text-slate-300'} text-sm italic`}>
                         "En él asimismo tuvimos herencia... para que seamos para alabanza de su gloria."
                       </p>
-                      <p className={`${isReadingMode ? 'text-amber-400/90' : 'text-amber-400'} text-[10px] font-mono mt-1 uppercase tracking-widest`}>
+                      <p className={`${isReadingMode ? 'text-amber-400/90' : 'text-amber-400'} text-xs font-mono mt-1 uppercase tracking-widest`}>
                         Efesios 1:11, Romanos 8:17
                       </p>
                     </div>
 
                     <p className={`${paragraphClass} text-center mb-4`}>
-                      El pecado no solo esclaviza. También roba identidad, propósito y esperanza. Pero Cristo restaura lo que parecía perdido de forma irrevocable.
+                      El pecado roba identidad y esperanza, pero Cristo puede restaurar todo lo que considerábamos perdido.
                     </p>
 
-                    <p className={`text-xs font-semibold mb-2.5 text-center ${isReadingMode ? 'text-amber-100/90' : 'text-slate-300'}`}>
-                      ¿Qué sentías que habías perdido debido a tus caídas o mentiras?
+                    <p className={`text-sm font-semibold mb-2.5 text-center ${isReadingMode ? 'text-amber-100/90' : 'text-slate-200'}`}>
+                      ¿Qué sentías que habías perdido?
                     </p>
 
                     {/* Lost Traits Multi-selectors */}
@@ -1120,13 +1116,13 @@ MI RESPUESTA DE GRATITUD:
                           <button
                             key={trait}
                             onClick={() => toggleLostTrait(trait)}
-                            className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-300 flex items-center gap-1 ${
+                            className={`px-3.5 py-2 rounded-full text-sm font-medium border transition-all duration-300 flex items-center gap-1.5 ${
                               isSelected 
                                 ? 'bg-amber-400/20 border-amber-400 text-amber-200' 
-                                : (isReadingMode ? 'bg-[#120a06]/40 border-amber-950/30 text-amber-400 hover:border-amber-900/40' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:border-slate-700')
+                                : (isReadingMode ? 'bg-[#120a06]/40 border-amber-950/30 text-amber-400 hover:border-amber-900/40' : 'bg-slate-900/50 border-slate-800 text-slate-300 hover:border-slate-700')
                             }`}
                           >
-                            {isSelected && <Check className="w-3.5 h-3.5" />}
+                            {isSelected && <Check className="w-4 h-4" />}
                             {trait}
                           </button>
                         );
@@ -1134,13 +1130,13 @@ MI RESPUESTA DE GRATITUD:
                     </div>
 
                     {/* Custom lost input */}
-                    <div className="mt-3 flex gap-2">
+                    <div className="mt-4 flex gap-2">
                       <input
                         type="text"
                         value={customLostInput}
                         onChange={(e) => setCustomLostInput(e.target.value)}
                         placeholder="Otro aspecto perdido..."
-                        className={`text-xs rounded-lg px-3 py-2 flex-grow focus:outline-none ${inputStyleClass}`}
+                        className={`text-sm rounded-lg px-3.5 py-2.5 flex-grow focus:outline-none ${inputStyleClass}`}
                         onKeyDown={(e) => {
                           if (e.key === 'Enter' && customLostInput.trim()) {
                             toggleLostTrait(customLostInput.trim());
@@ -1155,14 +1151,14 @@ MI RESPUESTA DE GRATITUD:
                             setCustomLostInput('');
                           }
                         }}
-                        className="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-2 rounded-lg border border-slate-700 transition"
+                        className="bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm px-4 py-2.5 rounded-lg border border-slate-700 transition"
                       >
                         Añadir
                       </button>
                     </div>
 
                     {responses.lostTraits.length === 0 && (
-                      <p className="text-[11px] text-amber-300/70 italic text-center mt-3 animate-pulse">
+                      <p className="text-xs text-amber-300/75 italic text-center mt-3 animate-pulse font-serif">
                         * Selecciona al menos un aspecto para continuar
                       </p>
                     )}
@@ -1171,17 +1167,17 @@ MI RESPUESTA DE GRATITUD:
                   <div className="mt-8 flex justify-between gap-3 pt-4 border-t border-slate-900/60 font-medium">
                     <button
                       onClick={navigateBack}
-                      className="px-4 py-2 text-xs text-slate-400 hover:text-slate-100 flex items-center gap-1.5 transition"
+                      className="px-4 py-2 text-sm text-slate-400 hover:text-slate-100 flex items-center gap-1.5 transition"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5" /> Volver
+                      <ArrowLeft className="w-4 h-4" /> Volver
                     </button>
                     <button
                       onClick={() => setScreen('station2_restored')}
                       disabled={responses.lostTraits.length === 0}
-                      className="px-5 py-2.5 bg-amber-400 hover:bg-amber-300 disabled:bg-slate-800 disabled:text-slate-500 text-slate-950 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition duration-300 select-none cursor-pointer"
+                      className="px-5 py-3 bg-amber-400 hover:bg-amber-300 disabled:bg-slate-800 disabled:text-slate-500 text-slate-950 text-sm font-semibold rounded-lg flex items-center gap-1.5 transition duration-300 select-none cursor-pointer"
                       id="station-2a-next"
                     >
-                      Continuar <ArrowRight className="w-3.5 h-3.5" />
+                      Continuar <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -1194,8 +1190,8 @@ MI RESPUESTA DE GRATITUD:
                   <div>
                     <HearthIllustration />
 
-                    <div className={`${isReadingMode ? 'bg-[#0a0502]/85 border-[#2c1708]' : 'bg-slate-950/40 border-slate-850'} p-3 rounded-lg border text-center my-3.5`}>
-                      <p className={`${isReadingMode ? 'text-amber-200/90' : 'text-slate-400'} text-xs font-serif italic`}>
+                    <div className={`${isReadingMode ? 'bg-[#0a0502]/85 border-[#2c1708]' : 'bg-slate-950/40 border-slate-850'} p-3.5 rounded-lg border text-center my-3.5`}>
+                      <p className={`${isReadingMode ? 'text-amber-250/90' : 'text-slate-300'} text-sm font-serif italic`}>
                         "Cristo restaura todo lo que parecía perdido en la mesa del Padre."
                       </p>
                     </div>
@@ -1203,7 +1199,7 @@ MI RESPUESTA DE GRATITUD:
                     <div className="space-y-4">
                       {/* Open Question: What has God restored */}
                       <div>
-                        <label className={`block text-xs font-mono mb-1.5 uppercase tracking-wider ${isReadingMode ? 'text-amber-305/70' : 'text-slate-400'}`}>
+                        <label className={`block text-sm font-semibold mb-1.5 uppercase tracking-wider ${isReadingMode ? 'text-amber-305/70' : 'text-slate-300'}`}>
                           ¿Qué te ha devuelto Dios que creías perdido para siempre?
                         </label>
                         <textarea
@@ -1211,7 +1207,7 @@ MI RESPUESTA DE GRATITUD:
                           onChange={(e) => setResponses(prev => ({ ...prev, restoredDetails: e.target.value }))}
                           placeholder="Reconoce Su gracia tangible restaurando tu dignidad, esperanza, un ministerio o una relación..."
                           rows={3}
-                          className={`w-full p-2.5 rounded-lg text-xs leading-relaxed focus:outline-none resize-none ${inputStyleClass}`}
+                          className={`w-full p-3.5 rounded-lg text-sm leading-relaxed focus:outline-none resize-none ${inputStyleClass}`}
                         />
                       </div>
 
@@ -1222,11 +1218,11 @@ MI RESPUESTA DE GRATITUD:
                           animate={{ opacity: 1, y: 0 }}
                           className="pt-2"
                         >
-                          <label className={`block text-xs font-mono mb-1.5 uppercase tracking-wider font-semibold ${isReadingMode ? 'text-amber-400/90' : 'text-amber-300'}`}>
+                          <label className={`block text-sm font-bold mb-1.5 uppercase tracking-wider ${isReadingMode ? 'text-amber-400/90' : 'text-amber-300'}`}>
                             Completa esta frase con asombro:
                           </label>
-                          <div className={`${isReadingMode ? 'bg-[#060402] border-amber-950' : 'bg-slate-950/90 border-amber-500/20'} p-3 rounded-lg border`}>
-                            <span className={`text-xs font-serif block mb-1 ${isReadingMode ? 'text-amber-300/80' : 'text-slate-300'}`}>
+                          <div className={`${isReadingMode ? 'bg-[#060402] border-amber-950' : 'bg-slate-950/90 border-amber-500/20'} p-3.5 rounded-lg border`}>
+                            <span className={`text-sm font-serif block mb-1 ${isReadingMode ? 'text-amber-300/80' : 'text-slate-300'}`}>
                               "Gracias Jesús, porque restauraste..."
                             </span>
                             <input
@@ -1234,7 +1230,7 @@ MI RESPUESTA DE GRATITUD:
                               value={responses.restorationSentence}
                               onChange={(e) => setResponses(prev => ({ ...prev, restorationSentence: e.target.value }))}
                               placeholder="ej. mi valor filial al llamarme Tu hijo amado..."
-                              className={`w-full p-2.5 rounded text-xs focus:outline-none text-amber-200 ${inputStyleClass}`}
+                              className={`w-full p-3 rounded text-sm focus:outline-none text-amber-200 ${inputStyleClass}`}
                             />
                           </div>
                         </motion.div>
@@ -1245,9 +1241,9 @@ MI RESPUESTA DE GRATITUD:
                   <div className="mt-8 flex justify-between gap-3 pt-4 border-t border-slate-900/60">
                     <button
                       onClick={navigateBack}
-                      className="px-4 py-2 text-xs text-slate-400 hover:text-slate-100 flex items-center gap-1.5 transition"
+                      className="px-4 py-2 text-sm text-slate-400 hover:text-slate-100 flex items-center gap-1.5 transition"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5" /> Volver
+                      <ArrowLeft className="w-4 h-4" /> Volver
                     </button>
                     <button
                       onClick={() => {
@@ -1258,10 +1254,10 @@ MI RESPUESTA DE GRATITUD:
                         }, 3500);
                       }}
                       disabled={!responses.restoredDetails.trim() || !responses.restorationSentence.trim()}
-                      className="px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition duration-300 disabled:bg-slate-800 disabled:text-slate-500 select-none cursor-pointer"
+                      className="px-5 py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 text-sm font-semibold rounded-lg flex items-center gap-1.5 transition duration-300 disabled:bg-slate-800 disabled:text-slate-500 select-none cursor-pointer"
                       id="station-2b-next"
                     >
-                      A Estación 3 <ArrowRight className="w-3.5 h-3.5" />
+                      A Estación 3 <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -1272,21 +1268,21 @@ MI RESPUESTA DE GRATITUD:
               {screen === 'station3_lies' && (
                 <div id="screen-station-3" className="flex flex-col justify-between h-full">
                   <div>
-                    <div className="flex items-center justify-center gap-2 text-amber-500 text-[11px] font-mono tracking-widest uppercase mb-1">
+                    <div className="flex items-center justify-center gap-2 text-amber-500 text-xs font-mono tracking-widest uppercase mb-1">
                       <Unlock className="w-3.5 h-3.5 text-amber-400 animate-bounce" />
                       <span>Estación 3: El Prisionero Liberado</span>
                     </div>
-
+ 
                     <h2 className={headingClass + " text-center mb-1"}>
                       El Traslado de Reino
                     </h2>
 
                     {/* Verses */}
                     <div className={`${isReadingMode ? 'bg-[#0a0502]/85 border-[#2c1708]' : 'bg-slate-950/40 border-slate-800/20'} p-3.5 rounded-xl border text-center my-3`}>
-                      <p className={`${isReadingMode ? 'text-amber-250/95' : 'text-slate-300'} text-xs font-serif italic leading-relaxed`}>
+                      <p className={`${isReadingMode ? 'text-amber-250/95' : 'text-slate-300'} text-sm font-serif italic leading-relaxed`}>
                         "El cual nos ha librado de la potestad de las tinieblas, y trasladado al reino de su amado Hijo."
                       </p>
-                      <p className={`${isReadingMode ? 'text-amber-500' : 'text-amber-500'} text-[10px] font-mono mt-1 uppercase tracking-widest`}>
+                      <p className={`${isReadingMode ? 'text-amber-500' : 'text-amber-500'} text-xs font-mono mt-1 uppercase tracking-widest`}>
                         Colosenses 1:13, Lucas 4:18
                       </p>
                     </div>
@@ -1294,17 +1290,17 @@ MI RESPUESTA DE GRATITUD:
                     <PrisonIllustration />
 
                     <p className={`${paragraphClass} text-center mb-4 mt-2`}>
-                      Había una prisión de mentiras oscuras que no podías abrir desde dentro. Pero Cristo rompió el cerrojo y abrió la puerta.
+                      Había una prisión de mentiras oscuras que no podías abrir solo. Pero Cristo rompió los cerrojos y te dio la libertad.
                     </p>
 
                     {/* Lies input and recommendations */}
                     <div className="space-y-4">
                       <div>
                         <div className="flex justify-between items-center mb-1.5">
-                          <label className={`block text-xs font-mono uppercase tracking-wider ${isReadingMode ? 'text-amber-305/70' : 'text-slate-400'}`}>
+                          <label className={`block text-sm font-semibold mb-1.5 uppercase tracking-wider ${isReadingMode ? 'text-amber-305/70' : 'text-slate-300'}`}>
                             ¿Qué mentira gobernaba tu vida?
                           </label>
-                          <span className={`text-[10px] ${isReadingMode ? 'text-amber-600/70' : 'text-slate-500'}`}>Toca un ejemplo para rellenar</span>
+                          <span className={`text-[11px] font-sans ${isReadingMode ? 'text-amber-500/80' : 'text-slate-400'}`}>Toca un ejemplo para rellenar</span>
                         </div>
 
                         {/* Recommendation Tags */}
@@ -1314,7 +1310,7 @@ MI RESPUESTA DE GRATITUD:
                               key={lie}
                               type="button"
                               onClick={() => setResponses(prev => ({ ...prev, believedLie: lie }))}
-                              className={`text-[10px] font-serif italic px-2 py-1 rounded transition text-left border ${
+                              className={`text-[11px] font-serif italic px-2 py-1 rounded transition text-left border ${
                                 isReadingMode 
                                   ? 'bg-[#0e0703]/90 border-amber-950 text-amber-300 hover:text-amber-100 hover:bg-[#180e07]' 
                                   : 'bg-slate-950 hover:bg-slate-900 border-slate-800 hover:border-slate-700 text-slate-400 hover:text-slate-200'
@@ -1330,7 +1326,7 @@ MI RESPUESTA DE GRATITUD:
                           value={responses.believedLie}
                           onChange={(e) => setResponses(prev => ({ ...prev, believedLie: e.target.value }))}
                           placeholder="ej. No soy digno de ser amado o usado por Dios..."
-                          className={`w-full p-3 rounded-lg text-xs focus:outline-none ${inputStyleClass}`}
+                          className={`w-full p-3.5 rounded-lg text-sm focus:outline-none ${inputStyleClass}`}
                         />
                       </div>
 
@@ -1341,7 +1337,7 @@ MI RESPUESTA DE GRATITUD:
                           animate={{ opacity: 1, y: 0 }}
                           className="pt-1.5"
                         >
-                          <label className={`block text-xs font-mono mb-1.5 uppercase tracking-wider ${isReadingMode ? 'text-amber-305/70' : 'text-slate-400'}`}>
+                          <label className={`block text-sm font-semibold mb-1.5 uppercase tracking-wider ${isReadingMode ? 'text-amber-305/70' : 'text-slate-300'}`}>
                             ¿Qué verdad del Evangelio gobierna hoy tu corazón?
                           </label>
                           <input
@@ -1349,7 +1345,7 @@ MI RESPUESTA DE GRATITUD:
                             value={responses.governingTruth}
                             onChange={(e) => setResponses(prev => ({ ...prev, governingTruth: e.target.value }))}
                             placeholder="ej. En Cristo soy justificado, adoptado y escogido."
-                            className={`w-full p-3 rounded-lg text-xs focus:outline-none ${inputStyleClass}`}
+                            className={`w-full p-3.5 rounded-lg text-sm focus:outline-none ${inputStyleClass}`}
                           />
                         </motion.div>
                       )}
@@ -1359,9 +1355,9 @@ MI RESPUESTA DE GRATITUD:
                   <div className="mt-8 flex justify-between gap-3 pt-4 border-t border-slate-900/60 font-medium">
                     <button
                       onClick={navigateBack}
-                      className="px-4 py-2 text-xs text-slate-400 hover:text-slate-100 flex items-center gap-1.5 transition"
+                      className="px-4 py-2 text-sm text-slate-400 hover:text-slate-100 flex items-center gap-1.5 transition"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5" /> Volver
+                      <ArrowLeft className="w-4 h-4" /> Volver
                     </button>
                     <button
                       onClick={() => {
@@ -1372,10 +1368,10 @@ MI RESPUESTA DE GRATITUD:
                         }, 3500);
                       }}
                       disabled={!responses.believedLie.trim() || !responses.governingTruth.trim()}
-                      className="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition duration-300 disabled:bg-slate-800 disabled:text-slate-500 select-none cursor-pointer font-mono"
+                      className="px-5 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 text-sm font-bold rounded-lg flex items-center gap-1.5 transition duration-300 disabled:bg-slate-800 disabled:text-slate-500 select-none cursor-pointer"
                       id="station-3-next"
                     >
-                      MOMENTO CULMINANTE <ArrowRight className="w-3.5 h-3.5" />
+                      MOMENTO CULMINANTE <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -1733,17 +1729,16 @@ MI RESPUESTA DE GRATITUD:
                   <div className="mt-8 flex justify-between gap-3 pt-4 border-t border-slate-900/60 font-medium font-sans">
                     <button
                       onClick={navigateBack}
-                      className="px-4 py-2 text-xs text-slate-400 hover:text-slate-100 flex items-center gap-1.5 transition"
+                      className="px-4 py-2 text-sm text-slate-400 hover:text-slate-100 flex items-center gap-1.5 transition"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5" /> Volver
+                      <ArrowLeft className="w-4 h-4" /> Volver
                     </button>
                     <button
                       onClick={() => setScreen('cierre')}
-                      disabled={!responses.prayer.trim()}
-                      className="px-5 py-2.5 bg-[#d4a359] hover:bg-amber-400 text-slate-950 text-xs font-bold rounded-lg flex items-center gap-1.5 transition duration-300 disabled:bg-slate-800 disabled:text-slate-500 select-none cursor-pointer shadow-lg shadow-black/40"
+                      className="px-5 py-3 bg-[#d4a359] hover:bg-amber-400 text-slate-950 text-sm font-bold rounded-lg flex items-center gap-1.5 transition duration-300 select-none cursor-pointer shadow-lg shadow-black/40"
                       id="gratitude-next"
                     >
-                      Continuar al Cierre <ArrowRight className="w-3.5 h-3.5" />
+                      Continuar al Cierre <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -1757,13 +1752,13 @@ MI RESPUESTA DE GRATITUD:
                     <div className="text-center">
                       <Sparkles className="w-8 h-8 text-amber-300 mx-auto animate-pulse" />
                       
-                      <h2 className="text-xl sm:text-2xl font-serif text-amber-200 tracking-tight leading-snug my-2">
+                      <h2 className="text-2xl font-serif text-amber-200 tracking-tight leading-snug my-2">
                         Nunca olvides de dónde te sacó.
                       </h2>
                     </div>
 
                     {/* Charge block */}
-                    <div className={`space-y-3.5 text-xs sm:text-[13px] leading-relaxed px-1 italic border-l-2 border-[#d4a359]/40 pl-3 ${isReadingMode ? 'text-amber-100/90' : 'text-slate-300'}`}>
+                    <div className={`space-y-3.5 text-sm sm:text-base leading-relaxed px-1 italic border-l-2 border-[#d4a359]/40 pl-3 ${isReadingMode ? 'text-amber-100/90' : 'text-slate-200'}`}>
                       <p>
                         "Cuando acompañes a alguien atrapado por el pecado, <strong className={isReadingMode ? 'text-yellow-400 font-semibold' : 'text-amber-100'}>recuerda tus cadenas</strong>."
                       </p>
@@ -1773,28 +1768,28 @@ MI RESPUESTA DE GRATITUD:
                       <p>
                         "Cuando veas a alguien cautivo, <strong className={isReadingMode ? 'text-yellow-400 font-semibold' : 'text-amber-100'}>recuerda tu propia prisión</strong>."
                       </p>
-                      <p className={`not-italic text-center text-xs font-sans mt-4 font-semibold ${isReadingMode ? 'text-amber-400' : 'text-[#d4a359]/90'}`}>
+                      <p className={`not-italic text-center text-sm font-sans mt-4 font-semibold ${isReadingMode ? 'text-amber-400' : 'text-[#d4a359]/90'}`}>
                         Porque el mejor consejero no es quien ha olvidado su pasado, sino quien nunca supera el asombro de haber sido redimido.
                       </p>
                     </div>
 
                     {/* Scripture Card */}
                     <div className={`${isReadingMode ? 'bg-[#0f0803] border-amber-900/40' : 'bg-slate-950/60 border-slate-900'} p-3.5 border rounded-xl text-center my-3 max-w-sm mx-auto`}>
-                      <p className={`text-xs sm:text-sm font-serif italic ${isReadingMode ? 'text-amber-200/90' : 'text-slate-200'}`}>
+                      <p className={`text-sm sm:text-base font-serif italic ${isReadingMode ? 'text-amber-200/90' : 'text-slate-200'}`}>
                         "Porque el Hijo del Hombre vino a buscar y a salvar lo que se había perdido."
                       </p>
-                      <p className="text-[#d4a359] text-[10px] font-mono mt-1 uppercase tracking-widest">
+                      <p className="text-[#d4a359] text-xs font-mono mt-1 uppercase tracking-widest font-semibold">
                         Lucas 19:10
                       </p>
                     </div>
 
                     {/* Liturgical final prompt */}
-                    <div className={`${isReadingMode ? 'bg-amber-950/15 border-amber-900/30 text-amber-200/80' : 'bg-[#d4a359]/5 border-[#d4a359]/20 text-amber-200/90'} border rounded-xl p-3.5 text-center text-xs leading-relaxed font-serif`}>
-                      <span className={`block font-sans text-[10px] uppercase font-mono tracking-wider mb-1 ${isReadingMode ? 'text-amber-400/55' : 'text-slate-400'}`}>
+                    <div className={`${isReadingMode ? 'bg-amber-950/15 border-amber-900/30 text-amber-200/80' : 'bg-[#d4a359]/5 border-[#d4a359]/20 text-amber-200/90'} border rounded-xl p-3.5 text-center text-sm leading-relaxed font-serif`}>
+                      <span className={`block font-sans text-xs uppercase font-mono tracking-wider mb-1 ${isReadingMode ? 'text-amber-400/55' : 'text-slate-400'}`}>
                         Instrucción pastoral silenciosa
                       </span>
                       Antes de cerrar esta experiencia, detente por un momento y di en voz baja o piensa en tu corazón:
-                      <strong className={`block text-sm mt-1 ${isReadingMode ? 'text-yellow-300 font-bold' : 'text-yellow-100'}`}>
+                      <strong className={`block text-base mt-1 ${isReadingMode ? 'text-yellow-300 font-bold' : 'text-yellow-105'}`}>
                         "Gracias, Jesús, porque me encontraste."
                       </strong>
                     </div>
@@ -1805,14 +1800,14 @@ MI RESPUESTA DE GRATITUD:
                         <Award className="w-3.5 h-3.5 text-[#d4a359]" />
                         <span className={isReadingMode ? 'text-amber-300/80' : ''}>Mi Ofrenda de Recordación</span>
                       </h3>
-                      <p className={`text-[10.5px] text-center mb-3 ${isReadingMode ? 'text-amber-450/40' : 'text-slate-500'}`}>
+                      <p className={`text-xs text-center mb-3 ${isReadingMode ? 'text-amber-450/40' : 'text-slate-450'}`}>
                         Tus respuestas y oración están archivadas temporalmente de forma segura en tu navegador. Puedes guardarlas o copiarlas como ayuda de diario para tu curso de Consejería Bíblica.
                       </p>
                       
                       <div className="flex gap-2 justify-center">
                         <button
                           onClick={copyDossierToClipboard}
-                          className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white rounded-lg text-xs hover:border-slate-700 transition"
+                          className="flex items-center gap-1.5 px-4 py-2.5 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white rounded-lg text-sm hover:border-slate-700 transition font-medium"
                           title="Copia todas tus respuestas al portapapeles"
                           id="btn-copy-dossier"
                         >
@@ -1822,7 +1817,7 @@ MI RESPUESTA DE GRATITUD:
                         
                         <button
                           onClick={downloadDossierPDF}
-                          className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white rounded-lg text-xs hover:border-slate-700 transition"
+                          className="flex items-center gap-1.5 px-4 py-2.5 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white rounded-lg text-sm hover:border-slate-700 transition font-medium"
                           title="Descargar dossier completo como un documento PDF listo para imprimir"
                           id="btn-download-dossier"
                         >
