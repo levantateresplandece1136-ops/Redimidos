@@ -1,0 +1,6 @@
+{
+  "name": "Recuerda de dónde te sacó",
+  "description": "Una experiencia interactiva y reflexiva sobre la grandeza de la redención de Cristo para estudiantes de consejería bíblica.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
